@@ -2,7 +2,8 @@
 
 namespace Domain.Implementation
 {
-    public class Class1
+    public class PcService
     {
+
     }
 }
