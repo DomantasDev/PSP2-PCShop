@@ -6,6 +6,10 @@ namespace Repositories.Implementation
 {
     public class PcContext : DbContext
     {
+        public PcContext(DbContextOptions<PcContext> options):base(options)
+        {
+        }
+
         public DbSet<OrderModel> Orders { get; set; }
         public DbSet<PcModel> Pcs { get; set; }
         public DbSet<ClientModel> Clients { get; set; }

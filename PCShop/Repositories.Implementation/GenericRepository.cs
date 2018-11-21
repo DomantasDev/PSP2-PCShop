@@ -4,6 +4,7 @@ using Repositories.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace Repositories.Implementation
 {
@@ -29,6 +30,11 @@ namespace Repositories.Implementation
         public TModel Get(Guid id)
         {
             return _ctx.Set<TModel>().Find(id);
+        }
+
+        public IEnumerable<TModel> Get()
+        {
+            return _ctx.Set<TModel>().ToList();
         }
 
         public Guid Save(TModel model)

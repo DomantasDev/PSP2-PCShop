@@ -4,4 +4,10 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.Contracts.csproj" />
+    <ProjectReference Include="..\Facade.Contracts\Facade.Contracts.csproj" />
+    <ProjectReference Include="..\Repositories.Contracts\Repositories.Contracts.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -10,6 +10,15 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain.Implementation\Domain.Implementation.csproj" />
+    <ProjectReference Include="..\Facade.Contracts\Facade.Contracts.csproj" />
+    <ProjectReference Include="..\Facade.Implementation\Facade.Implementation.csproj" />
+    <ProjectReference Include="..\Models.Implementation\Models.Implementation.csproj" />
+    <ProjectReference Include="..\Repositories.Implementation\Repositories.Implementation.csproj" />
   </ItemGroup>
 
 </Project>
