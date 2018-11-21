@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Domain.Contracts
 {
-    public interface IOrderValidationService
+    public interface ITaxService
     {
-        bool ValidateOrder(OrderModel order);
+        void CalculateTaxes(OrderModel order);
     }
 }

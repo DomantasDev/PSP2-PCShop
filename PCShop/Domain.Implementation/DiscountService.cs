@@ -1,4 +1,4 @@
-﻿using DomainServices;
+﻿using Domain.Contracts;
 using Models.Implementation;
 using System;
 

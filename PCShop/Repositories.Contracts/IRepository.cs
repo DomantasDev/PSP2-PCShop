@@ -10,6 +10,6 @@ namespace Repositories.Contracts
         TModel Get(Guid id);
         IEnumerable<TModel> Get();
         void Update(TModel model);
-        void delete(Guid id);
+        void Delete(Guid id);
     }
 }

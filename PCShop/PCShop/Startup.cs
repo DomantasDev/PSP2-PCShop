@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Domain.Contracts;
 using Domain.Implementation;
-using DomainServices;
 using Facade.Contracts;
 using Facade.Implementation;
 using Microsoft.AspNetCore.Builder;
@@ -19,6 +18,7 @@ using Models.Implementation;
 using Repositories.Contracts;
 using Repositories.Implementation;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace PCShop
 {
@@ -36,14 +36,20 @@ namespace PCShop
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+            });
+
             services.AddScoped<IOrderFacade, OrderFacade>();
             services.AddScoped<IPcFacade, PcFacade>();
+            services.AddScoped<IClientFacade, ClientFacade>();
             services.AddScoped<IDiscountService, DiscountService>();
-            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IOrderValidationService, OrderValidationService>();
             services.AddScoped<IRepository<PcModel>, GenericRepository<PcModel>>();
             services.AddScoped<IRepository<ClientModel>, GenericRepository<ClientModel>>();
             services.AddScoped<IRepository<OrderModel>, GenericRepository<OrderModel>>();
-            services.AddDbContext<PcContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=EFGetStarted.AspNetCore.NewDb;Trusted_Connection=True;ConnectRetryCount=0"));
+            services.AddDbContext<PcContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=PcDB;Trusted_Connection=True;ConnectRetryCount=0"));
 
         }
 
@@ -58,6 +64,15 @@ namespace PCShop
             {
                 app.UseHsts();
             }
+
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
 
             app.UseHttpsRedirection();
             app.UseMvc();

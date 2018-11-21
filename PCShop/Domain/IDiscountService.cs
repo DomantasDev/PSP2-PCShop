@@ -1,7 +1,7 @@
 ﻿using Models.Implementation;
 using System;
 
-namespace DomainServices
+namespace Domain.Contracts
 {
     public interface IDiscountService
     {

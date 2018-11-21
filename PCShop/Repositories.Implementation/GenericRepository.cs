@@ -17,7 +17,7 @@ namespace Repositories.Implementation
             _ctx = ctx;
         }
 
-        public void delete(Guid id)
+        public void Delete(Guid id)
         {
             var entity = Get(id);
             if (entity != null)

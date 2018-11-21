@@ -28,9 +28,9 @@ namespace PCShop.Controllers
         }
 
         [HttpPost]
-        public void CreatePc([FromBody]PcDto dto)
+        public Guid CreatePc([FromBody]PcDto dto)
         {
-            _pcFacade.CreatePc(dto.Name, dto.CPU, dto.GPU, dto.Price);
+            return _pcFacade.CreatePc(dto.Name, dto.CPU, dto.GPU, dto.Price);
         }
     }
 }
