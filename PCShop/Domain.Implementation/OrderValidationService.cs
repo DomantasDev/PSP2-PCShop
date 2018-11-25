@@ -1,4 +1,5 @@
 ﻿using Domain.Contracts;
+using Models.Contracts;
 using Models.Implementation;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace Domain.Implementation
             _discountService = discountService;
         }
 
-        public bool ValidateOrder(OrderModel order)
+        public bool ValidateOrder(Order order)
         {
             if (order.Price > order.Client.CashBalance)
                 return false;

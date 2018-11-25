@@ -46,9 +46,9 @@ namespace PCShop
             services.AddScoped<IClientFacade, ClientFacade>();
             services.AddScoped<IDiscountService, DiscountService>();
             services.AddScoped<IOrderValidationService, OrderValidationService>();
-            services.AddScoped<IRepository<PcModel>, GenericRepository<PcModel>>();
-            services.AddScoped<IRepository<ClientModel>, GenericRepository<ClientModel>>();
-            services.AddScoped<IRepository<OrderModel>, GenericRepository<OrderModel>>();
+            services.AddScoped<IRepository<WindowsPc>, GenericRepository<WindowsPc>>();
+            services.AddScoped<IRepository<BasicClient>, GenericRepository<BasicClient>>();
+            services.AddScoped<IRepository<BasicOrder>, GenericRepository<BasicOrder>>();
             services.AddDbContext<PcContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=PcDB;Trusted_Connection=True;ConnectRetryCount=0"));
 
         }

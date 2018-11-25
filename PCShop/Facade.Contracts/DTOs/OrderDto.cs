@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PCShop.DTO
+namespace Facade.Contracts.DTOs
 {
     public class OrderDto
     {
+        public Guid Id { get; set; }
         public Guid ClientId { get; set; }
         public Guid PcId { get; set; }
         public int Quantity { get; set; }

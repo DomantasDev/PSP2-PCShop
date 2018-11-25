@@ -7,7 +7,7 @@ namespace Domain.Implementation
 {
     public class TaxService
     {
-        public void CalculateTaxes(OrderModel order)
+        public void CalculateTaxes(BasicOrder order)
         {
             if (order.DestinationCountry != "Lietuva")
                 order.Price *= 1.2m;

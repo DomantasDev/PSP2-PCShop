@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Facade.Contracts;
+using Facade.Contracts.DTOs;
+using Facade.Contracts.Requests;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Models.Contracts;
 using Models.Implementation;
-using PCShop.DTO;
 
 namespace PCShop.Controllers
 {
@@ -22,15 +24,15 @@ namespace PCShop.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<ClientModel> Get()
+        public IEnumerable<ClientDto> Get()
         {
             return _clientFacade.GetClients();
         }
 
         [HttpPost]
-        public Guid CreateClient([FromBody]ClientDto dto)
+        public Guid CreateClient([FromBody]ClientRequest request)
         {
-            return _clientFacade.CreateCLient(dto.Email, dto.Address, dto.CashBalance);
+            return _clientFacade.CreateCLient(request);
         }
     }
 }

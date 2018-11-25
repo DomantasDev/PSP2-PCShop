@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PCShop.DTO
+namespace Facade.Contracts.Requests
 {
-    public class ClientDto
+    public class ClientRequest
     {
         public string Email { get; set; }
         public string Address { get; set; }

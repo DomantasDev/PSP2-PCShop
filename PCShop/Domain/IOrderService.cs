@@ -1,4 +1,5 @@
-﻿using Models.Implementation;
+﻿using Models.Contracts;
+using Models.Implementation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,6 +8,6 @@ namespace Domain.Contracts
 {
     public interface IOrderValidationService
     {
-        bool ValidateOrder(OrderModel order);
+        bool ValidateOrder(Order order);
     }
 }

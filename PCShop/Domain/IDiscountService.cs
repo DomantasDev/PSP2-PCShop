@@ -1,10 +1,11 @@
-﻿using Models.Implementation;
+﻿using Models.Contracts;
+using Models.Implementation;
 using System;
 
 namespace Domain.Contracts
 {
     public interface IDiscountService
     {
-        void GetDiscount(OrderModel order);
+        void GetDiscount(Order order);
     }
 }

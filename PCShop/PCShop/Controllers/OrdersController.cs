@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Facade.Contracts;
+using Facade.Contracts.DTOs;
+using Facade.Contracts.Requests;
 using Microsoft.AspNetCore.Mvc;
 using Models.Implementation;
-using PCShop.DTO;
 
 namespace PCShop.Controllers
 {
@@ -21,21 +22,19 @@ namespace PCShop.Controllers
         }
 
         [HttpPost("CreateOrder")]
-        public IActionResult CreateOrder([FromBody]OrderDto dto)
+        public Guid CreateOrder([FromBody]OrderRequest request)
         {
-            if (_orderFacade.TryCreateOrder(dto.PcId, dto.Quantity, dto.ClientId, dto.DestinationCountry, out var orderId))
-                return Ok(orderId);
-            return BadRequest();
+            return _orderFacade.CreateOrder(request);
         }
 
         [HttpGet]
-        public OrderModel Get(Guid id)
+        public OrderDto Get(Guid id)
         {
             return _orderFacade.GetOrder(id);
         }
 
         [HttpGet]
-        public IEnumerable<OrderModel> Get()
+        public IEnumerable<OrderDto> Get()
         {
             return _orderFacade.GetOrders();
         }

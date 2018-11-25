@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Models.Contracts
 {
-    public interface IModel
+    public interface IEntity
     {
         Guid Id { get; set; }
     }

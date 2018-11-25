@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace Repositories.Contracts
 {
-    public interface IRepository<TModel> where TModel : class, IModel
+    public interface IRepository<TModel> where TModel : class, IEntity
     {
-        Guid Save(TModel model);
+        TModel Save(TModel model);
         TModel Get(Guid id);
         IEnumerable<TModel> Get();
         void Update(TModel model);

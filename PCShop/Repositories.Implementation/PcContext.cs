@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Models.Contracts;
 using Models.Implementation;
 using System;
 
@@ -10,22 +11,34 @@ namespace Repositories.Implementation
         {
         }
 
-        public DbSet<OrderModel> Orders { get; set; }
-        public DbSet<PcModel> Pcs { get; set; }
-        public DbSet<ClientModel> Clients { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Pc> Pcs { get; set; }
+        public DbSet<Client> Clients { get; set; }
 
         protected override void OnModelCreating(ModelBuilder mb)
         {
-            mb.Entity<OrderModel>().HasKey(x => x.Id);
-            mb.Entity<PcModel>().HasKey(x => x.Id);
-            mb.Entity<ClientModel>().HasKey(x => x.Id);
+            mb.Entity<Order>().HasKey(x => x.Id);
+            mb.Entity<Pc>().HasKey(x => x.Id);
+            mb.Entity<Client>().HasKey(x => x.Id);
 
-            mb.Entity<OrderModel>()
+            mb.Entity<Order>().HasDiscriminator<string>("Type")
+                .HasValue<BasicOrder>("BASIC")
+                .HasValue<VIPOrder>("VIP");
+
+            mb.Entity<Pc>().HasDiscriminator<string>("Type")
+                .HasValue<WindowsPc>("WINDOWS")
+                .HasValue<LinuxPc>("LINUX");
+
+            mb.Entity<Client>().HasDiscriminator<string>("Type")
+                .HasValue<BasicClient>("BASIC")
+                .HasValue<VIPClient>("VIP");
+
+            mb.Entity<Order>()
                 .HasOne(om => om.Pc)
                 .WithMany(p => p.Orders)
                 .HasForeignKey(om => om.PcId);
 
-            mb.Entity<OrderModel>()
+            mb.Entity<Order>()
                 .HasOne(om => om.Client)
                 .WithMany(p => p.Orders)
                 .HasForeignKey(om => om.ClientId);

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Facade.Contracts;
+using Facade.Contracts.DTOs;
+using Facade.Contracts.Requests;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models.Implementation;
-using PCShop.DTO;
 
 namespace PCShop.Controllers
 {
@@ -22,15 +23,15 @@ namespace PCShop.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<PcModel> Get()
+        public IEnumerable<PcDto> Get()
         {
             return _pcFacade.GetPcs();
         }
 
         [HttpPost]
-        public Guid CreatePc([FromBody]PcDto dto)
+        public Guid CreatePc([FromBody]PcRequest request)
         {
-            return _pcFacade.CreatePc(dto.Name, dto.CPU, dto.GPU, dto.Price);
+            return _pcFacade.CreatePc(request);
         }
     }
 }

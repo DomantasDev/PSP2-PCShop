@@ -5,20 +5,26 @@ using Repositories.Contracts;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using Facade.Contracts.Requests;
+using Models.Contracts;
+using Factory.Contracts;
+using Facade.Contracts.DTOs;
+using Facade.Implementation.Mappers;
 
 namespace Facade.Implementation
 {
     public class OrderFacade : IOrderFacade
     {
         private readonly IOrderValidationService _orderValidationService;
-        private readonly IRepository<ClientModel> _clientRepo;
-        private readonly IRepository<PcModel> _pcRepo;
-        private readonly IRepository<OrderModel> _ordersRepo;
+        private readonly IClientRepository _clientRepo;
+        private readonly IPcRepository _pcRepo;
+        private readonly IOrderRepository _ordersRepo;
         private readonly IDiscountService _discountService;
         private readonly IDeliveryService _deliveryService;
         private readonly ITaxService _taxService;
+        private readonly IOrderFactory _orderFactory;
 
-        public OrderFacade(IOrderValidationService orderValidationService, IRepository<OrderModel> ordersRepo, IRepository<PcModel> pcRepo, IRepository<ClientModel> clientRepo, IDiscountService discountService, IDeliveryService deliveryService, ITaxService taxService)
+        public OrderFacade(IOrderValidationService orderValidationService, IOrderRepository ordersRepo, IPcRepository pcRepo, IClientRepository clientRepo, IDiscountService discountService, IDeliveryService deliveryService, ITaxService taxService, IOrderFactory orderFactory)
         {
             _orderValidationService = orderValidationService;
             _clientRepo  = clientRepo;
@@ -27,36 +33,34 @@ namespace Facade.Implementation
             _discountService = discountService;
             _deliveryService = deliveryService;
             _taxService = taxService;
+            _orderFactory = orderFactory;
         }
 
-        public bool TryCreateOrder(Guid pcId, int quantity, Guid clientId, string destinationCountry, out Guid orderId)
+        public Guid CreateOrder(OrderRequest request)
         {
-            var pc = _pcRepo.Get(pcId);
-            var client = _clientRepo.Get(clientId);
+            var pc = _pcRepo.Get(request.PcId);
+            var client = _clientRepo.Get(request.ClientId);
 
-            var order = new OrderModel(pc, quantity, client, destinationCountry);
+            var order = _orderFactory.CreateOrder(client, pc, request.Quantity, request.DestinationCountry);
 
             _discountService.GetDiscount(order);
             _taxService.CalculateTaxes(order);
-            if(_orderValidationService.ValidateOrder(order))
-            {
-                _deliveryService.EstimateDelivery(order);
-                orderId = _ordersRepo.Save(order);
-                return true;
-            }
-            
-            orderId = new Guid();
-            return false;
+
+            if (!_orderValidationService.ValidateOrder(order))
+                throw new ArgumentException();
+
+            _deliveryService.EstimateDelivery(order);
+            return _ordersRepo.Save(order).Id;
         }
 
-        public IEnumerable<OrderModel> GetOrders()
+        public IEnumerable<OrderDto> GetOrders()
         {
-            return _ordersRepo.Get();
+            return _ordersRepo.Get().ToDtos();
         }
 
-        public OrderModel GetOrder(Guid id)
+        public OrderDto GetOrder(Guid id)
         {
-            return _ordersRepo.Get(id);
+            return _ordersRepo.Get(id).ToDto();
         }
 
         public void Delete(Guid id)
