@@ -9,7 +9,8 @@ namespace Models.Implementation
     {
         public override void GetDiscount()
         {
-            throw new NotImplementedException();
+            if (Price > 900)
+                Price *= 0.8m;
         }
     }
 }

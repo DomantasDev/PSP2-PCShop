@@ -9,7 +9,7 @@ namespace Models.Implementation
     {
         public override void AddCash(decimal cash)
         {
-            throw new NotImplementedException();
+            CashBalance += cash * 1.05m;
         }
     }
 }

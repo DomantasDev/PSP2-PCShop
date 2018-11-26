@@ -8,6 +8,7 @@
     <ProjectReference Include="..\Domain\Domain.Contracts.csproj" />
     <ProjectReference Include="..\Facade.Contracts\Facade.Contracts.csproj" />
     <ProjectReference Include="..\Factory.Contracts\Factory.Contracts.csproj" />
+    <ProjectReference Include="..\Integrations.Contracts\Integrations.Contracts.csproj" />
     <ProjectReference Include="..\Repositories.Contracts\Repositories.Contracts.csproj" />
   </ItemGroup>
 

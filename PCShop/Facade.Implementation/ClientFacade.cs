@@ -3,6 +3,7 @@ using Facade.Contracts.DTOs;
 using Facade.Contracts.Requests;
 using Facade.Implementation.Mappers;
 using Factory.Contracts;
+using Integrations.Contracts;
 using Models.Implementation;
 using Repositories.Contracts;
 using System;
@@ -16,11 +17,13 @@ namespace Facade.Implementation
     {
         private readonly IClientRepository _clientRepo;
         private readonly IClientFactory _clientFacotry;
+        private readonly INotifier _notifier;
 
-        public ClientFacade(IClientRepository clientRepo, IClientFactory clientFacotry)
+        public ClientFacade(IClientRepository clientRepo, IClientFactory clientFacotry, INotifier notifier)
         {
             _clientRepo = clientRepo;
             _clientFacotry = clientFacotry;
+            _notifier = notifier;
         }
 
         public IEnumerable<ClientDto> GetClients()
@@ -30,7 +33,9 @@ namespace Facade.Implementation
 
         public Guid CreateCLient(ClientRequest request)
         {
-            return _clientRepo.Save(_clientFacotry.CreateClient(request.Email, request.Address, request.CashBalance)).Id;
+            var client = _clientRepo.Save(_clientFacotry.CreateClient(request.Email, request.Address, request.CashBalance));
+            _notifier.Notify(client, "An account has been created for you");
+            return client.Id;
         }
     }
 }

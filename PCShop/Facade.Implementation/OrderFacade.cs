@@ -10,6 +10,7 @@ using Models.Contracts;
 using Factory.Contracts;
 using Facade.Contracts.DTOs;
 using Facade.Implementation.Mappers;
+using Integrations.Contracts;
 
 namespace Facade.Implementation
 {
@@ -19,21 +20,21 @@ namespace Facade.Implementation
         private readonly IClientRepository _clientRepo;
         private readonly IPcRepository _pcRepo;
         private readonly IOrderRepository _ordersRepo;
-        private readonly IDiscountService _discountService;
         private readonly IDeliveryService _deliveryService;
         private readonly ITaxService _taxService;
         private readonly IOrderFactory _orderFactory;
+        private readonly INotifier _notifier;
 
-        public OrderFacade(IOrderValidationService orderValidationService, IOrderRepository ordersRepo, IPcRepository pcRepo, IClientRepository clientRepo, IDiscountService discountService, IDeliveryService deliveryService, ITaxService taxService, IOrderFactory orderFactory)
+        public OrderFacade(IOrderValidationService orderValidationService, IOrderRepository ordersRepo, IPcRepository pcRepo, IClientRepository clientRepo, IDeliveryService deliveryService, ITaxService taxService, IOrderFactory orderFactory, INotifier notifier)
         {
             _orderValidationService = orderValidationService;
             _clientRepo  = clientRepo;
             _pcRepo = pcRepo;
             _ordersRepo = ordersRepo;
-            _discountService = discountService;
             _deliveryService = deliveryService;
             _taxService = taxService;
             _orderFactory = orderFactory;
+            _notifier = notifier;
         }
 
         public Guid CreateOrder(OrderRequest request)
@@ -43,13 +44,17 @@ namespace Facade.Implementation
 
             var order = _orderFactory.CreateOrder(client, pc, request.Quantity, request.DestinationCountry);
 
-            _discountService.GetDiscount(order);
+            order.GetDiscount();
             _taxService.CalculateTaxes(order);
 
             if (!_orderValidationService.ValidateOrder(order))
                 throw new ArgumentException();
 
+            
             _deliveryService.EstimateDelivery(order);
+
+            _notifier.Notify(client, "An order has been made");
+
             return _ordersRepo.Save(order).Id;
         }
 

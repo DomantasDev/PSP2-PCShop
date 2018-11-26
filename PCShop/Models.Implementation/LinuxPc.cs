@@ -9,7 +9,7 @@ namespace Models.Implementation
     {
         public override void InstallOS()
         {
-            throw new NotImplementedException();
+            OS = "Linux";
         }
     }
 }

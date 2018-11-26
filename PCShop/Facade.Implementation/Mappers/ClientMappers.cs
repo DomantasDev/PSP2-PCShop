@@ -16,7 +16,8 @@ namespace Facade.Implementation.Mappers
                 Address = client.Address,
                 Email = client.Email,
                 CashBalance = client.CashBalance,
-                Id = client.Id
+                Id = client.Id,
+                PhoneNumber = client.PhoneNumber
             };
         }
 

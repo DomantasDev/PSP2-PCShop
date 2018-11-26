@@ -9,7 +9,7 @@ namespace Models.Implementation
     {
         public override void AddCash(decimal cash)
         {
-            this.CashBalance += cash;
+            CashBalance += cash;
         }
     }
 }
