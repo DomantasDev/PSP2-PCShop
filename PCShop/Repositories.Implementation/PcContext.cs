@@ -7,9 +7,12 @@ namespace Repositories.Implementation
 {
     public class PcContext : DbContext
     {
+
         public PcContext(DbContextOptions<PcContext> options):base(options)
         {
         }
+
+        public PcContext() : base() { }
 
         public DbSet<Order> Orders { get; set; }
         public DbSet<Pc> Pcs { get; set; }
@@ -44,4 +47,15 @@ namespace Repositories.Implementation
                 .HasForeignKey(om => om.ClientId);
         }
     }
+
+    //public class ApplicationContextDbFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
+    //{
+    //    ApplicationDbContext IDesignTimeDbContextFactory<ApplicationDbContext>.CreateDbContext(string[] args)
+    //    {
+    //        var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+    //        optionsBuilder.UseSqlServer<ApplicationDbContext>("Server = (localdb)\\mssqllocaldb; Database = MyDatabaseName; Trusted_Connection = True; MultipleActiveResultSets = true");
+
+    //        return new ApplicationDbContext(optionsBuilder.Options);
+    //    }
+    //}
 }

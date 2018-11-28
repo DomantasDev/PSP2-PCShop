@@ -1,6 +1,7 @@
 ﻿using Integrations.Contracts;
 using Models.Contracts;
 using System;
+using System.Diagnostics;
 
 namespace Integrations.Implentation
 {
@@ -8,7 +9,7 @@ namespace Integrations.Implentation
     {
         public void Notify(Client client, string message)
         {
-            Console.WriteLine($"Sends an email to {client.Email} message: {message}");
+            Trace.WriteLine($"Sends an email to {client.Email} message: {message}");
         }
     }
 }

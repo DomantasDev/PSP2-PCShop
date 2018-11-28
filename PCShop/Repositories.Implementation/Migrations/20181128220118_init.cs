@@ -13,8 +13,10 @@ namespace Repositories.Implementation.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Email = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<int>(nullable: false),
                     Address = table.Column<string>(nullable: true),
-                    CashBalance = table.Column<decimal>(nullable: false)
+                    CashBalance = table.Column<decimal>(nullable: false),
+                    Type = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -29,7 +31,9 @@ namespace Repositories.Implementation.Migrations
                     Name = table.Column<string>(nullable: true),
                     CPU = table.Column<string>(nullable: true),
                     GPU = table.Column<string>(nullable: true),
-                    Price = table.Column<decimal>(nullable: false)
+                    Price = table.Column<decimal>(nullable: false),
+                    OS = table.Column<string>(nullable: true),
+                    Type = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,7 +48,10 @@ namespace Repositories.Implementation.Migrations
                     ClientId = table.Column<Guid>(nullable: false),
                     PcId = table.Column<Guid>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
-                    Price = table.Column<decimal>(nullable: false)
+                    Price = table.Column<decimal>(nullable: false),
+                    DestinationCountry = table.Column<string>(nullable: true),
+                    EstimatedDelivery = table.Column<DateTime>(nullable: false),
+                    Type = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

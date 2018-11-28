@@ -27,7 +27,7 @@ namespace PCShop.Controllers
             return _orderFacade.CreateOrder(request);
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public OrderDto Get(Guid id)
         {
             return _orderFacade.GetOrder(id);

@@ -1,4 +1,5 @@
-﻿using Models.Contracts;
+﻿using Domain.Contracts;
+using Models.Contracts;
 using Models.Implementation;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace Domain.Implementation
 {
-    public class TaxService
+    public class TaxService : ITaxService
     {
         public void CalculateTaxes(Order order)
         {
