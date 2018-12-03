@@ -1,7 +1,5 @@
 ﻿using Facade.Contracts.DTOs;
 using Facade.Contracts.Requests;
-using Models.Contracts;
-using Models.Implementation;
 using System;
 using System.Collections.Generic;
 using System.Text;

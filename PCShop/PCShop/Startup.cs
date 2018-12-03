@@ -1,4 +1,5 @@
-﻿using System;
+﻿#define C2
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -50,14 +51,20 @@ namespace PCShop
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
 
-            var builder = new ContainerBuilder();
+#if C1
+            return Config1(services);
+#endif
+#if C2
+            return Config2(services);
+#endif
 
-            builder.RegisterType<VIPClient>()
-                .As<Client>();
-            builder.RegisterType<VIPOrder>()
-                .As<Order>();
-            builder.RegisterType<WindowsPc>()
-                .As<Pc>();
+
+
+        }
+
+        private IServiceProvider Config1(IServiceCollection services)
+        {
+            var builder = new ContainerBuilder();
 
             builder.RegisterType<ClientRepository>()
                 .As<IClientRepository>();
@@ -100,32 +107,61 @@ namespace PCShop
             builder.RegisterType<PcFacade>()
                 .As<IPcFacade>();
 
-            //builder.RegisterType<PcContext>()
-            //    .WithParameter(new ResolvedParameter(
-            //        (pi, ctx) => pi.ParameterType == typeof(DbContextOptions<PcContext>),
-            //        (pi, ctx) =>
-            //            {
-            //                var opt = new DbContextOptionsBuilder<PcContext>();
-            //                opt.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=PcDB;Trusted_Connection=True;ConnectRetryCount=0");
-            //                return opt.Options;
-            //            }));
+            builder.Populate(services);
+            var container = builder.Build();
 
+            return new AutofacServiceProvider(container);
+        }
+
+        private IServiceProvider Config2(IServiceCollection services)
+        {
+            var builder = new ContainerBuilder();
+
+            builder.RegisterType<ClientRepository>()
+                .As<IClientRepository>();
+            builder.RegisterType<OrderRepository>()
+                .As<IOrderRepository>();
+            builder.RegisterType<PcRepository>()
+                .As<IPcRepository>();
+
+            builder.RegisterType<CheaperTaxService>()
+                .As<ITaxService>();
+            builder.RegisterType<FastDeliveryService>()
+                .As<IDeliveryService>();
+            builder.RegisterType<LoanOrderValidationService>()
+                .As<IOrderValidationService>();
+
+            builder.RegisterType<BasicClientFactory>()
+                .As<IClientFactory>();
+            builder.RegisterType<BasicOrderFactory>()
+                .As<IOrderFactory>();
+            builder.RegisterType<LinuxPcFactory>()
+                .As<IPcFactory>();
+
+            builder.RegisterType<EmailNotifier>()
+                .As<INotifier>()
+                .Keyed<INotifier>("email");
+            builder.RegisterType<SMSNotifier>()
+                .As<INotifier>()
+                .Keyed<INotifier>("sms");
+
+            builder.RegisterType<ClientFacade>()
+                .WithParameter(new ResolvedParameter(
+                    (pi, ctx) => pi.ParameterType == typeof(INotifier),
+                    (pi, ctx) => ctx.ResolveKeyed<INotifier>("sms")))
+                .As<IClientFacade>();
+            builder.RegisterType<OrderFacade>()
+                .WithParameter(new ResolvedParameter(
+                    (pi, ctx) => pi.ParameterType == typeof(INotifier),
+                    (pi, ctx) => ctx.ResolveKeyed<INotifier>("email")))
+                .As<IOrderFacade>();
+            builder.RegisterType<PcFacade>()
+                .As<IPcFacade>();
 
             builder.Populate(services);
             var container = builder.Build();
-         
+
             return new AutofacServiceProvider(container);
-
-
-            //services.AddScoped<IOrderFacade, OrderFacade>();
-            //services.AddScoped<IPcFacade, PcFacade>();
-            //services.AddScoped<IClientFacade, ClientFacade>();
-            //services.AddScoped<IOrderValidationService, OrderValidationService>();
-            //services.AddScoped<IRepository<WindowsPc>, GenericRepository<WindowsPc>>();
-            //services.AddScoped<IRepository<BasicClient>, GenericRepository<BasicClient>>();
-            //services.AddScoped<IRepository<BasicOrder>, GenericRepository<BasicOrder>>();
-           //services.AddDbContext<PcContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=PcDB;Trusted_Connection=True;ConnectRetryCount=0"));
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -9,9 +9,9 @@ namespace Factory.Implementation
 {
     public class VIPClientFactory : IClientFactory
     {
-        public Client CreateClient(string email, string address, decimal cashBalance)
+        public Client CreateClient(string email, string address, decimal cashBalance, int phoneNumber)
         {
-            return new VIPClient { Address = address, CashBalance = cashBalance, Email = email };
+            return new VIPClient { Address = address, CashBalance = cashBalance, Email = email, PhoneNumber = phoneNumber };
         }
     }
 }

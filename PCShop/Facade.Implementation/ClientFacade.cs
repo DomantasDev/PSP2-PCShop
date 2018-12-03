@@ -33,7 +33,7 @@ namespace Facade.Implementation
 
         public Guid CreateCLient(ClientRequest request)
         {
-            var client = _clientRepo.Save(_clientFacotry.CreateClient(request.Email, request.Address, request.CashBalance));
+            var client = _clientRepo.Save(_clientFacotry.CreateClient(request.Email, request.Address, request.CashBalance, request.PhoneNumber));
             _notifier.Notify(client, "An account has been created for you");
             return client.Id;
         }

@@ -11,7 +11,7 @@ namespace Factory.Implementation
     {
         public Order CreateOrder(Client client, Pc pc, int quantity, string destinationCountry)
         {
-            return new BasicOrder { Client = client, Pc = pc, Quantity = quantity, DestinationCountry = destinationCountry };
+            return new BasicOrder { Client = client, Pc = pc, Quantity = quantity, DestinationCountry = destinationCountry, Price = pc.Price * quantity };
         }
     }
 }

@@ -7,6 +7,6 @@ namespace Factory.Contracts
 {
     public interface IClientFactory
     {
-        Client CreateClient(string email, string address, decimal cashBalance);
+        Client CreateClient(string email, string address, decimal cashBalance, int phoneNumber);
     }
 }

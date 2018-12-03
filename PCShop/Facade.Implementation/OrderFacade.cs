@@ -49,10 +49,9 @@ namespace Facade.Implementation
 
             if (!_orderValidationService.ValidateOrder(order))
                 throw new ArgumentException();
-
-            
+          
             _deliveryService.EstimateDelivery(order);
-
+            _clientRepo.SubtractMoney(client.Id, order.Price);
             _notifier.Notify(client, "An order has been made");
 
             return _ordersRepo.Save(order).Id;
