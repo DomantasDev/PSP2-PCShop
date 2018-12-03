@@ -21,7 +21,6 @@
     <ProjectReference Include="..\Domain.Implementation\Domain.Implementation.csproj" />
     <ProjectReference Include="..\Facade.Contracts\Facade.Contracts.csproj" />
     <ProjectReference Include="..\Facade.Implementation\Facade.Implementation.csproj" />
-    <ProjectReference Include="..\Factory.Implementation\Factory.Implementation.csproj" />
     <ProjectReference Include="..\Integrations.Implentation\Integrations.Implentation.csproj" />
     <ProjectReference Include="..\Models.Implementation\Models.Implementation.csproj" />
     <ProjectReference Include="..\Repositories.Implementation\Repositories.Implementation.csproj" />

@@ -1,9 +1,10 @@
 ﻿using Models.Contracts;
+using Models.Contracts.ClientOrder;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Models.Implementation
+namespace Models.Implementation.Basic
 {
     public class BasicOrder : Order
     {

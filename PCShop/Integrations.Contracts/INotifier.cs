@@ -1,4 +1,5 @@
 ﻿using Models.Contracts;
+using Models.Contracts.ClientOrder;
 using System;
 
 namespace Integrations.Contracts

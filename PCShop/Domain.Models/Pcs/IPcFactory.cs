@@ -1,7 +1,7 @@
 ﻿using Models.Contracts;
 using System;
 
-namespace Factory.Contracts
+namespace Models.Contracts.Pcs
 {
     public interface IPcFactory
     {

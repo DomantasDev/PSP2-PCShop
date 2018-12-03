@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Models.Contracts.Pcs;
 
-namespace Models.Contracts
+namespace Models.Contracts.ClientOrder
 {
-    public abstract class Order : IEntity
+    public abstract class Order
     {
         public Guid Id { get; set; }
         public Guid ClientId { get; set; }

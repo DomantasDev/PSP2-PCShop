@@ -1,4 +1,5 @@
 ﻿using Models.Contracts;
+using Models.Contracts.ClientOrder;
 using Models.Implementation;
 using System;
 using System.Collections.Generic;

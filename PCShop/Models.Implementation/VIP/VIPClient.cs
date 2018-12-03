@@ -1,15 +1,16 @@
 ﻿using Models.Contracts;
+using Models.Contracts.ClientOrder;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Models.Implementation
+namespace Models.Implementation.VIP
 {
-    public class BasicClient : Client
+    public class VIPClient : Client
     {
         public override void AddCash(decimal cash)
         {
-            CashBalance += cash;
+            CashBalance += cash * 1.05m;
         }
     }
 }

@@ -7,10 +7,10 @@ using System.Linq;
 using System.Collections.Generic;
 using Facade.Contracts.Requests;
 using Models.Contracts;
-using Factory.Contracts;
 using Facade.Contracts.DTOs;
 using Facade.Implementation.Mappers;
 using Integrations.Contracts;
+using Models.Contracts.ClientOrder;
 
 namespace Facade.Implementation
 {
@@ -22,10 +22,10 @@ namespace Facade.Implementation
         private readonly IOrderRepository _ordersRepo;
         private readonly IDeliveryService _deliveryService;
         private readonly ITaxService _taxService;
-        private readonly IOrderFactory _orderFactory;
+        private readonly IClientOrderFactory _orderFactory;
         private readonly INotifier _notifier;
 
-        public OrderFacade(IOrderValidationService orderValidationService, IOrderRepository ordersRepo, IPcRepository pcRepo, IClientRepository clientRepo, IDeliveryService deliveryService, ITaxService taxService, IOrderFactory orderFactory, INotifier notifier)
+        public OrderFacade(IOrderValidationService orderValidationService, IOrderRepository ordersRepo, IPcRepository pcRepo, IClientRepository clientRepo, IDeliveryService deliveryService, ITaxService taxService, IClientOrderFactory clientOrderFactory, INotifier notifier)
         {
             _orderValidationService = orderValidationService;
             _clientRepo  = clientRepo;
@@ -33,7 +33,7 @@ namespace Facade.Implementation
             _ordersRepo = ordersRepo;
             _deliveryService = deliveryService;
             _taxService = taxService;
-            _orderFactory = orderFactory;
+            _orderFactory = clientOrderFactory;
             _notifier = notifier;
         }
 

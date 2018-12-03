@@ -24,11 +24,15 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Autofac.Core;
 using Models.Contracts;
-using Factory.Implementation;
-using Factory.Contracts;
 using Integrations.Implentation;
 using Integrations.Contracts;
 using Microsoft.AspNetCore.Http;
+using Models.Implementation.VIP;
+using Models.Contracts.ClientOrder;
+using Models.Implementation.Windows;
+using Models.Contracts.Pcs;
+using Models.Implementation.Basic;
+using Models.Implementation.Linux;
 
 namespace PCShop
 {
@@ -80,10 +84,8 @@ namespace PCShop
             builder.RegisterType<OrderValidationService>()
                 .As<IOrderValidationService>();
 
-            builder.RegisterType<VIPClientFactory>()
-                .As<IClientFactory>();
-            builder.RegisterType<VIPOrderFactory>()
-                .As<IOrderFactory>();
+            builder.RegisterType<VIPFactory>()
+                .As<IClientOrderFactory>();
             builder.RegisterType<WindowsPcFactory>()
                 .As<IPcFactory>();
 
@@ -131,10 +133,8 @@ namespace PCShop
             builder.RegisterType<LoanOrderValidationService>()
                 .As<IOrderValidationService>();
 
-            builder.RegisterType<BasicClientFactory>()
-                .As<IClientFactory>();
-            builder.RegisterType<BasicOrderFactory>()
-                .As<IOrderFactory>();
+            builder.RegisterType<BasicFactory>()
+                .As<IClientOrderFactory>();
             builder.RegisterType<LinuxPcFactory>()
                 .As<IPcFactory>();
 

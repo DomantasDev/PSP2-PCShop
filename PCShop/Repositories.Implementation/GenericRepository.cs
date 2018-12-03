@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Repositories.Implementation
 {
-    public abstract class GenericRepository<TModel> : IRepository<TModel> where TModel : class, IEntity
+    public abstract class GenericRepository<TModel> : IRepository<TModel> where TModel : class
     {
         protected readonly PcContext _ctx;
 

@@ -1,6 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Models.Contracts;
+using Models.Contracts.ClientOrder;
+using Models.Contracts.Pcs;
 using Models.Implementation;
+using Models.Implementation.Basic;
+using Models.Implementation.Linux;
+using Models.Implementation.VIP;
+using Models.Implementation.Windows;
 using System;
 
 namespace Repositories.Implementation
@@ -47,15 +53,4 @@ namespace Repositories.Implementation
                 .HasForeignKey(om => om.ClientId);
         }
     }
-
-    //public class ApplicationContextDbFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
-    //{
-    //    ApplicationDbContext IDesignTimeDbContextFactory<ApplicationDbContext>.CreateDbContext(string[] args)
-    //    {
-    //        var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-    //        optionsBuilder.UseSqlServer<ApplicationDbContext>("Server = (localdb)\\mssqllocaldb; Database = MyDatabaseName; Trusted_Connection = True; MultipleActiveResultSets = true");
-
-    //        return new ApplicationDbContext(optionsBuilder.Options);
-    //    }
-    //}
 }

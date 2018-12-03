@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Models.Contracts
+namespace Models.Contracts.ClientOrder
 {
-    public abstract class Client : IEntity
+    public abstract class Client
     {
         public Guid Id { get; set; }
         public string Email { get; set; }
